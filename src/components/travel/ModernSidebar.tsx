@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useTravelData } from '@/hooks/useTravelData';
+import { FolderTree } from './FolderTree';
 
 export function ModernSidebar() {
   const { createFolder, folders, getNotesByFolder, setSelectedFolderId, selectedFolderId } = useTravelData();
@@ -43,49 +44,27 @@ export function ModernSidebar() {
       <div className="p-2">
         <h2 className="font-medium text-foreground ml-2 mb-2">Minhas Viagens</h2>
         <ScrollArea className="h-[calc(100vh-12rem)]">
-          <ul className="space-y-1">
-            {filteredFolders.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                  <Folder className="h-8 w-8 text-muted-foreground" />
-                </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Nenhuma viagem ainda
-                </p>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={handleCreateRootFolder}
-                  className="hover:bg-primary/5 hover:border-primary"
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Criar primeira viagem
-                </Button>
+          {filteredFolders.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                <Folder className="h-8 w-8 text-muted-foreground" />
               </div>
-            ) : (
-              filteredFolders.map((folder) => {
-                const notesCount = getNotesByFolder(folder.id).length;
-                const isSelected = selectedFolderId === folder.id;
-                
-                return (
-                  <li key={folder.id} className={isSelected ? "bg-primary/10 rounded-lg" : ""}>
-                    <button 
-                      onClick={() => setSelectedFolderId(folder.id)}
-                      className="w-full py-2.5 px-3 flex items-center justify-between hover:bg-muted rounded-lg transition-all duration-300"
-                    >
-                      <div className="flex items-center">
-                        <Folder className={`mr-3 h-4 w-4 ${isSelected ? 'text-primary' : 'text-muted-foreground'}`} />
-                        <span className={isSelected ? "font-medium text-primary" : "text-foreground"}>{folder.name}</span>
-                      </div>
-                      <span className={`text-xs px-2 py-1 rounded-full ${isSelected ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>
-                        {notesCount}
-                      </span>
-                    </button>
-                  </li>
-                );
-              })
-            )}
-          </ul>
+              <p className="text-sm text-muted-foreground mb-4">
+                Nenhuma viagem ainda
+              </p>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={handleCreateRootFolder}
+                className="hover:bg-primary/5 hover:border-primary"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Criar primeira viagem
+              </Button>
+            </div>
+          ) : (
+            <FolderTree />
+          )}
         </ScrollArea>
       </div>
     </div>
