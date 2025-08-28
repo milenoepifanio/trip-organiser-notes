@@ -22,9 +22,10 @@ Este guia explica como configurar a autenticação do Google OAuth no seu projet
 https://[SEU_PROJECT_ID].supabase.co/auth/v1/callback
 http://localhost:5173/auth/callback
 http://localhost:3000/auth/callback
+https://[SEU_DOMINIO_PRODUCAO]/auth/callback
 ```
 
-**Nota:** Substitua `[SEU_PROJECT_ID]` pelo ID do seu projeto Supabase.
+**Nota:** Substitua `[SEU_PROJECT_ID]` pelo ID do seu projeto Supabase e `[SEU_DOMINIO_PRODUCAO]` pelo seu domínio de produção.
 
 ### 1.3 Obter as Credenciais
 
@@ -55,6 +56,7 @@ Guarde essas informações para usar na configuração do Supabase.
 
 No Supabase Dashboard, vá para **Authentication** > **URL Configuration** e configure:
 
+#### Para Desenvolvimento:
 **Site URL:**
 ```
 http://localhost:5173
@@ -63,8 +65,20 @@ http://localhost:5173
 **Redirect URLs:**
 ```
 http://localhost:5173/auth/callback
+```
+
+#### Para Produção:
+**Site URL:**
+```
+https://[SEU_DOMINIO_PRODUCAO]
+```
+
+**Redirect URLs:**
+```
 https://[SEU_DOMINIO_PRODUCAO]/auth/callback
 ```
+
+**⚠️ IMPORTANTE:** Certifique-se de que a URL de produção está exatamente igual em ambos os lugares (Google Cloud Console e Supabase).
 
 ## 3. Configuração de Variáveis de Ambiente
 
@@ -89,7 +103,14 @@ VITE_SUPABASE_ANON_KEY=[SUA_ANON_KEY]
 4. Você deve ser redirecionado para o Google para autenticação
 5. Após o login, você será redirecionado de volta para a aplicação
 
-### 4.2 Verificação no Supabase
+### 4.2 Teste em Produção
+
+1. Faça deploy da aplicação
+2. Acesse seu domínio de produção
+3. Teste o fluxo de autenticação Google
+4. Verifique se o redirecionamento funciona corretamente
+
+### 4.3 Verificação no Supabase
 
 1. No Supabase Dashboard, vá para **Authentication** > **Users**
 2. Você deve ver o novo usuário criado via Google OAuth
@@ -97,19 +118,28 @@ VITE_SUPABASE_ANON_KEY=[SUA_ANON_KEY]
 
 ## 5. Solução de Problemas Comuns
 
-### 5.1 Erro "redirect_uri_mismatch"
+### 5.1 Erro "requested path is invalid"
+
+**Causa:** URL de redirecionamento não configurada corretamente no Supabase.
+
+**Solução:** 
+1. Verifique se a URL exata está listada em **Authentication** > **URL Configuration** > **Redirect URLs**
+2. Certifique-se de que não há espaços extras ou caracteres especiais
+3. A URL deve ser exatamente: `https://[SEU_DOMINIO]/auth/callback`
+
+### 5.2 Erro "redirect_uri_mismatch"
 
 **Causa:** A URL de redirecionamento não está configurada corretamente no Google Cloud Console.
 
 **Solução:** Verifique se todas as URLs de redirecionamento estão listadas corretamente no Google Cloud Console.
 
-### 5.2 Erro "invalid_client"
+### 5.3 Erro "invalid_client"
 
 **Causa:** Client ID ou Client Secret incorretos no Supabase.
 
 **Solução:** Verifique se as credenciais foram copiadas corretamente do Google Cloud Console.
 
-### 5.3 Usuário não é criado no Supabase
+### 5.4 Usuário não é criado no Supabase
 
 **Causa:** Configuração incorreta do provedor ou permissões.
 
@@ -132,6 +162,14 @@ https://[SEU_DOMINIO_PRODUCAO]/auth/callback
 
 Atualize as URLs de redirecionamento no Supabase Dashboard para incluir seu domínio de produção.
 
+### 6.3 Checklist de Produção
+
+- [ ] Google Cloud Console: URL de produção adicionada
+- [ ] Supabase: Site URL configurada para produção
+- [ ] Supabase: Redirect URL configurada para produção
+- [ ] Variáveis de ambiente configuradas
+- [ ] Teste de autenticação realizado
+
 ## 7. Segurança
 
 ### 7.1 Boas Práticas
@@ -148,7 +186,21 @@ No Supabase, você pode configurar:
 - **Phone confirmations**: Requer confirmação de telefone
 - **MFA**: Autenticação de dois fatores
 
-## 8. Recursos Adicionais
+## 8. Debugging
+
+### 8.1 Verificar Logs
+
+1. No Supabase Dashboard, vá para **Logs** > **Auth**
+2. Procure por erros relacionados ao Google OAuth
+3. Verifique se as requisições estão chegando corretamente
+
+### 8.2 Testar URLs
+
+Use estas ferramentas para testar suas URLs:
+- [URL Validator](https://www.freeformatter.com/url-parser-query-string-splitter.html)
+- Verifique se não há caracteres especiais ou espaços
+
+## 9. Recursos Adicionais
 
 - [Documentação oficial do Supabase Auth](https://supabase.com/docs/guides/auth)
 - [Google OAuth 2.0 Documentation](https://developers.google.com/identity/protocols/oauth2)

@@ -7,7 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Separator } from '@/components/ui/separator'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
-import { Loader2, Mail, Lock, MapPin } from 'lucide-react'
+import { Loader2, Mail, Lock, MapPin, Bug } from 'lucide-react'
+import { authDebug } from '@/utils/authDebug'
 
 export function LoginForm() {
   const [email, setEmail] = useState('')
@@ -56,6 +57,12 @@ export function LoginForm() {
 
   const handleGoogleSignIn = async () => {
     try {
+      // Executar debug antes do login
+      if (import.meta.env.DEV) {
+        console.log('🔍 Debug: Iniciando login Google...')
+        await authDebug.generateReport()
+      }
+
       const { error } = await signInWithGoogle()
       if (error) throw error
       
@@ -64,11 +71,43 @@ export function LoginForm() {
         description: "Você será redirecionado para o Google para fazer login.",
       })
     } catch (error: any) {
+      console.error('Erro no login Google:', error)
+      
+      // Se for erro de "requested path is invalid", mostrar dicas específicas
+      if (error.message?.includes('requested path is invalid')) {
+        toast({
+          title: "Erro de Configuração",
+          description: "URL de redirecionamento não configurada. Verifique o Supabase Dashboard.",
+          variant: "destructive",
+        })
+        
+        // Executar debug automático
+        if (import.meta.env.DEV) {
+          console.log('🔍 Debug: Erro de URL detectado, executando debug...')
+          authDebug.checkRedirectUrls()
+          authDebug.checkErrorLogs()
+        }
+      } else {
+        toast({
+          title: "Erro",
+          description: error.message || "Erro ao fazer login com Google",
+          variant: "destructive",
+        })
+      }
+    }
+  }
+
+  const handleDebug = async () => {
+    try {
+      const report = await authDebug.generateReport()
+      console.log('🔍 Relatório de Debug:', report)
+      
       toast({
-        title: "Erro",
-        description: error.message || "Erro ao fazer login com Google",
-        variant: "destructive",
+        title: "Debug Executado",
+        description: "Verifique o console do navegador para mais detalhes.",
       })
+    } catch (error) {
+      console.error('Erro no debug:', error)
     }
   }
 
@@ -180,6 +219,22 @@ export function LoginForm() {
                   )}
                 </Button>
               </form>
+
+              {/* Botão de Debug (apenas em desenvolvimento) */}
+              {import.meta.env.DEV && (
+                <div className="pt-4 border-t">
+                  <Button 
+                    type="button" 
+                    variant="ghost" 
+                    size="sm" 
+                    className="w-full text-xs text-muted-foreground"
+                    onClick={handleDebug}
+                  >
+                    <Bug className="mr-2 h-3 w-3" />
+                    Debug Auth (Dev)
+                  </Button>
+                </div>
+              )}
             </TabsContent>
             
             <TabsContent value="signup" className="space-y-4">
