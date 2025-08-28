@@ -8,7 +8,7 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
-import { useTravelData } from '@/hooks/useTravelData';
+import { useSupabaseData } from '@/hooks/useSupabaseData';
 import { TravelFolder } from '@/types/travel';
 
 interface FolderTreeProps {
@@ -29,7 +29,7 @@ export function FolderTree({ parentId, level = 0 }: FolderTreeProps) {
     selectedNoteId,
     setSelectedFolderId,
     setSelectedNoteId,
-  } = useTravelData();
+  } = useSupabaseData();
 
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
   const [editingFolder, setEditingFolder] = useState<string | null>(null);
@@ -38,6 +38,7 @@ export function FolderTree({ parentId, level = 0 }: FolderTreeProps) {
   const [newFolderName, setNewFolderName] = useState('');
 
   const folders = getFoldersByParent(parentId);
+  console.log(`FolderTree level ${level}, parentId: ${parentId}, folders:`, folders.length, folders.map(f => ({ id: f.id, name: f.name })));
 
   const toggleFolder = (folderId: string) => {
     const newExpanded = new Set(expandedFolders);
@@ -67,10 +68,14 @@ export function FolderTree({ parentId, level = 0 }: FolderTreeProps) {
     setNewFolderName('');
   };
 
-  const saveNewFolder = () => {
+  const saveNewFolder = async () => {
     if (newFolderName.trim()) {
-      const newFolder = createFolder(newFolderName.trim(), creatingFolder === 'root' ? undefined : creatingFolder);
-      setExpandedFolders(prev => new Set(prev).add(newFolder.id));
+      console.log('Criando pasta filha:', { name: newFolderName.trim(), parentId: creatingFolder === 'root' ? undefined : creatingFolder });
+      const newFolder = await createFolder(newFolderName.trim(), creatingFolder === 'root' ? undefined : creatingFolder);
+      console.log('Resultado da criação da pasta filha:', newFolder);
+      if (newFolder) {
+        setExpandedFolders(prev => new Set(prev).add(newFolder.id));
+      }
     }
     setCreatingFolder(null);
     setNewFolderName('');

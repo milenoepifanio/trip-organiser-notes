@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { Save, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useTravelData } from '@/hooks/useTravelData';
+import { useSupabaseData } from '@/hooks/useSupabaseData';
 import { RichTextEditor } from './RichTextEditor';
 import { useToast } from '@/hooks/use-toast';
 
 export function NoteEditor() {
-  const { selectedNoteId, getNote, updateNote } = useTravelData();
+  const { selectedNoteId, getNote, updateNote } = useSupabaseData();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [hasChanges, setHasChanges] = useState(false);

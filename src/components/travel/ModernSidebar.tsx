@@ -3,21 +3,27 @@ import { Search, Plus, Folder } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useTravelData } from '@/hooks/useTravelData';
+import { useSupabaseData } from '@/hooks/useSupabaseData';
 import { FolderTree } from './FolderTree';
 
 export function ModernSidebar() {
-  const { createFolder, folders, getNotesByFolder, setSelectedFolderId, selectedFolderId } = useTravelData();
+  const { createFolder, folders, getNotesByFolder, setSelectedFolderId, selectedFolderId } = useSupabaseData();
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleCreateRootFolder = () => {
+  console.log('ModernSidebar renderizado, folders:', folders.length, folders.map(f => ({ id: f.id, name: f.name })));
+
+  const handleCreateRootFolder = async () => {
     const folderName = `Viagem ${new Date().toLocaleDateString()}`;
-    createFolder(folderName);
+    console.log('Criando pasta raiz:', folderName);
+    const result = await createFolder(folderName);
+    console.log('Resultado da criação da pasta raiz:', result);
   };
 
   const filteredFolders = folders.filter(folder => 
     !folder.parentId && folder.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  console.log('filteredFolders:', filteredFolders.length, filteredFolders.map(f => ({ id: f.id, name: f.name, parentId: f.parentId })));
 
   return (
     <div className="w-full md:w-64 lg:w-80 bg-muted/30 border-r border-border">
@@ -44,7 +50,7 @@ export function ModernSidebar() {
       <div className="p-2">
         <h2 className="font-medium text-foreground ml-2 mb-2">Minhas Viagens</h2>
         <ScrollArea className="h-[calc(100vh-12rem)]">
-          {filteredFolders.length === 0 ? (
+          {folders.length === 0 ? (
             <div className="text-center py-12">
               <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
                 <Folder className="h-8 w-8 text-muted-foreground" />

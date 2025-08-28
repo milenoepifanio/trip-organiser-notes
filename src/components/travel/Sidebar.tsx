@@ -2,10 +2,10 @@ import { MapPin, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { FolderTree } from './FolderTree';
-import { useTravelData } from '@/hooks/useTravelData';
+import { useSupabaseData } from '@/hooks/useSupabaseData';
 
 export function Sidebar() {
-  const { createFolder, folders } = useTravelData();
+  const { createFolder, folders } = useSupabaseData();
 
   const handleCreateRootFolder = () => {
     const folderName = `Viagem ${new Date().toLocaleDateString()}`;
@@ -63,7 +63,7 @@ export function Sidebar() {
       {/* Footer */}
       <div className="p-4 border-t border-border bg-muted/30">
         <p className="text-xs text-muted-foreground text-center">
-          Dados salvos localmente no seu navegador
+          Dados sincronizados com o Supabase
         </p>
       </div>
     </div>

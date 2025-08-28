@@ -1,73 +1,117 @@
-# Welcome to your Lovable project
+# Travel Notes - Organizador de Viagens
 
-## Project info
+Uma aplicação moderna para organizar suas viagens com autenticação e sincronização em tempo real usando Supabase.
 
-**URL**: https://lovable.dev/projects/baf03ba3-b1ed-407d-b860-b85bb7a70466
+## 🚀 Funcionalidades
 
-## How can I edit this code?
+- ✨ **Autenticação segura** com Supabase Auth
+- 📁 **Organização hierárquica** de pastas e notas
+- 📝 **Editor de texto rico** para suas notas
+- 🔄 **Sincronização em tempo real** entre dispositivos
+- 🎨 **Interface moderna** com shadcn/ui
+- 📱 **Responsivo** para todos os dispositivos
 
-There are several ways of editing your application.
+## 🛠️ Tecnologias
 
-**Use Lovable**
+- **Frontend**: React + TypeScript + Vite
+- **UI**: shadcn/ui + Tailwind CSS
+- **Backend**: Supabase (PostgreSQL + Auth + Real-time)
+- **Editor**: TipTap (Rich Text Editor)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/baf03ba3-b1ed-407d-b860-b85bb7a70466) and start prompting.
+## 📋 Pré-requisitos
 
-Changes made via Lovable will be committed automatically to this repo.
+- Node.js 18+ e npm
+- Conta no [Supabase](https://supabase.com)
 
-**Use your preferred IDE**
+## 🚀 Configuração
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 1. Clone o repositório
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```bash
+git clone <URL_DO_REPOSITORIO>
+cd travel
+```
 
-Follow these steps:
+### 2. Instale as dependências
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```bash
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 3. Configure o Supabase
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. Crie um projeto no [Supabase](https://supabase.com)
+2. Execute o script SQL em `supabase-schema.sql` no SQL Editor
+3. Configure as variáveis de ambiente (veja [SUPABASE_SETUP.md](./SUPABASE_SETUP.md))
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### 4. Configure as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+VITE_SUPABASE_URL=sua_url_do_projeto
+VITE_SUPABASE_ANON_KEY=sua_chave_anonima
+```
+
+### 5. Execute a aplicação
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Acesse `http://localhost:8080` no seu navegador.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📖 Documentação
 
-**Use GitHub Codespaces**
+- [Configuração do Supabase](./SUPABASE_SETUP.md) - Guia completo de configuração
+- [Schema do banco de dados](./supabase-schema.sql) - Estrutura das tabelas
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🔧 Scripts disponíveis
 
-## What technologies are used for this project?
+- `npm run dev` - Inicia o servidor de desenvolvimento
+- `npm run build` - Gera build de produção
+- `npm run preview` - Visualiza o build de produção
+- `npm run lint` - Executa o linter
 
-This project is built with:
+## 🏗️ Estrutura do projeto
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```
+src/
+├── components/
+│   ├── auth/          # Componentes de autenticação
+│   ├── travel/        # Componentes da aplicação
+│   └── ui/            # Componentes UI (shadcn/ui)
+├── hooks/             # Hooks customizados
+├── lib/               # Configurações e utilitários
+├── pages/             # Páginas da aplicação
+└── types/             # Definições de tipos TypeScript
+```
 
-## How can I deploy this project?
+## 🔐 Segurança
 
-Simply open [Lovable](https://lovable.dev/projects/baf03ba3-b1ed-407d-b860-b85bb7a70466) and click on Share -> Publish.
+- **Row Level Security (RLS)** habilitado em todas as tabelas
+- **Autenticação** baseada em JWT
+- **Políticas de acesso** garantem que usuários vejam apenas seus dados
+- **Validação** de entrada em todos os formulários
 
-## Can I connect a custom domain to my Lovable project?
+## 📱 Deploy
 
-Yes, you can!
+### Lovable
+Para fazer deploy via Lovable, acesse o [projeto](https://lovable.dev/projects/baf03ba3-b1ed-407d-b860-b85bb7a70466) e clique em Share -> Publish.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Vercel/Netlify
+1. Conecte seu repositório
+2. Configure as variáveis de ambiente
+3. Deploy automático a cada push
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 🤝 Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.

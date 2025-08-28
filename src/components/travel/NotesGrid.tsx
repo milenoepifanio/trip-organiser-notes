@@ -8,7 +8,7 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
-import { useTravelData } from '@/hooks/useTravelData';
+import { useSupabaseData } from '@/hooks/useSupabaseData';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -20,7 +20,7 @@ export function NotesGrid() {
     createNote, 
     deleteNote,
     setSelectedNoteId 
-  } = useTravelData();
+  } = useSupabaseData();
 
   const folder = selectedFolderId ? getFolder(selectedFolderId) : null;
   const notes = selectedFolderId ? getNotesByFolder(selectedFolderId) : [];
