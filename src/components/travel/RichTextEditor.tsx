@@ -2,6 +2,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { Color } from '@tiptap/extension-color';
+import { useEffect } from 'react';
 import { 
   Bold, 
   Italic, 
@@ -42,10 +43,18 @@ export function RichTextEditor({ content, onChange, placeholder = "Comece a escr
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-sm max-w-none focus:outline-none p-4 min-h-[300px]',
+        'data-placeholder': placeholder,
       },
     },
+    immediatelyRender: false,
   });
+
+  // Sync content when it changes externally
+  useEffect(() => {
+    if (editor && content !== editor.getHTML()) {
+      editor.commands.setContent(content, { emitUpdate: false });
+    }
+  }, [editor, content]);
 
   if (!editor) {
     return null;
@@ -209,7 +218,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Comece a escr
       {/* Editor */}
       <EditorContent 
         editor={editor} 
-        className="prose-sm max-w-none [&_.ProseMirror]:min-h-[300px] [&_.ProseMirror]:outline-none [&_.ProseMirror]:p-4"
+        className="prose-sm max-w-none [&_.ProseMirror]:min-h-[300px] [&_.ProseMirror]:outline-none [&_.ProseMirror]:p-4 [&_.ProseMirror]:text-foreground [&_.ProseMirror]:cursor-text [&_.ProseMirror]:focus:outline-none [&_.ProseMirror]:focus:ring-0 [&_.ProseMirror]:bg-background"
       />
     </div>
   );
