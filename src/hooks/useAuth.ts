@@ -56,6 +56,35 @@ export function useAuth() {
     }
   }
 
+  const signInWithGoogle = async () => {
+    setLoading(true)
+    setError(null)
+    
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`
+        }
+      })
+      
+      if (error) {
+        console.error('Erro no login com Google:', error)
+        setError(error)
+      } else {
+        console.log('Login com Google iniciado:', data)
+      }
+      
+      setLoading(false)
+      return { data, error }
+    } catch (err: any) {
+      console.error('Erro inesperado no login com Google:', err)
+      setError(err)
+      setLoading(false)
+      return { data: null, error: err }
+    }
+  }
+
   const signUp = async (email: string, password: string) => {
     setLoading(true)
     setError(null)
@@ -107,6 +136,7 @@ export function useAuth() {
     loading,
     error,
     signIn,
+    signInWithGoogle,
     signUp,
     signOut,
     resetPassword,
