@@ -1,0 +1,42 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="390" height="844" fill="#f8fafc"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="390" height="80" fill="#2563eb"/>
+  <text x="195" y="45" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Travel Notes</text>
+  
+  <!-- Navigation -->
+  <rect x="0" y="80" width="390" height="60" fill="#e2e8f0"/>
+  <rect x="20" y="95" width="350" height="30" rx="15" fill="#3b82f6"/>
+  <text x="195" y="115" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">Minhas Viagens</text>
+  
+  <!-- Content Cards -->
+  <rect x="20" y="160" width="350" height="120" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="40" y="185" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">🇫🇷 Paris - Dia 1</text>
+  <text x="40" y="210" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Torre Eiffel, Louvre, Champs-Élysées</text>
+  <text x="40" y="230" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Tempo: Ensolarado ☀️</text>
+  <text x="40" y="250" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Gastos: €120</text>
+  
+  <rect x="20" y="300" width="350" height="120" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="40" y="325" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">🇮🇹 Roma - Dia 3</text>
+  <text x="40" y="350" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Coliseu, Vaticano, Fontana di Trevi</text>
+  <text x="40" y="370" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Tempo: Nublado ⛅</text>
+  <text x="40" y="390" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Gastos: €95</text>
+  
+  <rect x="20" y="440" width="350" height="120" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="40" y="465" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">🇪🇸 Barcelona - Dia 5</text>
+  <text x="40" y="490" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Sagrada Família, Park Güell</text>
+  <text x="40" y="510" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Tempo: Ensolarado ☀️</text>
+  <text x="40" y="530" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Gastos: €85</text>
+  
+  <!-- Bottom Navigation -->
+  <rect x="0" y="764" width="390" height="80" fill="#ffffff" stroke="#e2e8f0"/>
+  <circle cx="78" cy="804" r="20" fill="#3b82f6"/>
+  <text x="78" y="810" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">📝</text>
+  
+  <circle cx="195" cy="804" r="20" fill="#e2e8f0"/>
+  <text x="195" y="810" font-family="Arial, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">📁</text>
+  
+  <circle cx="312" cy="804" r="20" fill="#e2e8f0"/>
+  <text x="312" y="810" font-family="Arial, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">⚙️</text>
+</svg>

@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Debug from "./pages/Debug";
 import NotFound from "./pages/NotFound";
 import { AuthCallback } from "./pages/AuthCallback";
+import { PWAManager } from "./components/pwa/PWAManager";
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <PWAManager />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />

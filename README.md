@@ -1,22 +1,33 @@
-# Travel Notes - Organizador de Viagens
+# Travel Notes - Organizador de Viagens PWA 📱
 
-Uma aplicação moderna para organizar suas viagens com autenticação e sincronização em tempo real usando Supabase.
+Uma **Progressive Web App (PWA)** moderna para organizar suas viagens com autenticação, sincronização em tempo real e funcionalidade offline completa.
 
 ## 🚀 Funcionalidades
 
+### 📱 **PWA Features**
+- ✅ **Instalável** - Funciona como app nativo em qualquer dispositivo
+- ✅ **Offline First** - Funciona completamente sem internet
+- ✅ **Cache Inteligente** - Carregamento rápido e eficiente
+- ✅ **Atualizações Automáticas** - Sempre na versão mais recente
+- ✅ **Responsivo** - Interface adaptada para mobile, tablet e desktop
+- ✅ **Compartilhamento** - Web Share API integrada
+
+### 🎯 **Core Features**
 - ✨ **Autenticação segura** com Supabase Auth
 - 📁 **Organização hierárquica** de pastas e notas
 - 📝 **Editor de texto rico** para suas notas
 - 🔄 **Sincronização em tempo real** entre dispositivos
 - 🎨 **Interface moderna** com shadcn/ui
-- 📱 **Responsivo** para todos os dispositivos
+- 🌐 **Funcionalidade offline** com sincronização automática
 
 ## 🛠️ Tecnologias
 
 - **Frontend**: React + TypeScript + Vite
+- **PWA**: Service Worker + Web App Manifest + Cache API
 - **UI**: shadcn/ui + Tailwind CSS
 - **Backend**: Supabase (PostgreSQL + Auth + Real-time)
 - **Editor**: TipTap (Rich Text Editor)
+- **Icons**: Lucide React + Custom PWA Icons
 
 ## 📋 Pré-requisitos
 
@@ -63,15 +74,26 @@ Acesse `http://localhost:8080` no seu navegador.
 
 ## 📖 Documentação
 
+- [PWA Features](./PWA-README.md) - **Guia completo da Progressive Web App**
 - [Configuração do Supabase](./SUPABASE_SETUP.md) - Guia completo de configuração
 - [Schema do banco de dados](./supabase-schema.sql) - Estrutura das tabelas
+- [Troubleshooting](./TROUBLESHOOTING.md) - Solução de problemas comuns
 
 ## 🔧 Scripts disponíveis
 
+### **Desenvolvimento**
 - `npm run dev` - Inicia o servidor de desenvolvimento
-- `npm run build` - Gera build de produção
-- `npm run preview` - Visualiza o build de produção
 - `npm run lint` - Executa o linter
+
+### **Build e Deploy**
+- `npm run build` - Build padrão de produção
+- `npm run build:pwa` - Build completo da PWA (com ícones e screenshots)
+- `npm run preview` - Visualiza o build de produção
+
+### **PWA Tools**
+- `npm run generate:icons` - Gera ícones PWA em diferentes tamanhos
+- `npm run generate:screenshots` - Gera screenshots para app stores
+- `npm run pwa:setup` - Setup completo da PWA (ícones + screenshots)
 
 ## 🏗️ Estrutura do projeto
 
@@ -79,12 +101,20 @@ Acesse `http://localhost:8080` no seu navegador.
 src/
 ├── components/
 │   ├── auth/          # Componentes de autenticação
+│   ├── pwa/           # 🆕 Componentes PWA (PWAManager)
 │   ├── travel/        # Componentes da aplicação
 │   └── ui/            # Componentes UI (shadcn/ui)
 ├── hooks/             # Hooks customizados
+│   └── usePWA.ts      # 🆕 Hook para funcionalidades PWA
 ├── lib/               # Configurações e utilitários
 ├── pages/             # Páginas da aplicação
 └── types/             # Definições de tipos TypeScript
+
+public/
+├── icons/             # 🆕 Ícones PWA (72x72 até 512x512)
+├── screenshots/       # 🆕 Screenshots para app stores
+├── manifest.json      # 🆕 Manifesto da PWA
+└── sw.js             # 🆕 Service Worker
 ```
 
 ## 🔐 Segurança
@@ -96,13 +126,37 @@ src/
 
 ## 📱 Deploy
 
-### Lovable
-Para fazer deploy via Lovable, acesse o [projeto](https://lovable.dev/projects/baf03ba3-b1ed-407d-b860-b85bb7a70466) e clique em Share -> Publish.
+### 🚀 **PWA Deploy**
+A aplicação é uma PWA completa e pode ser deployada em qualquer plataforma:
 
-### Vercel/Netlify
-1. Conecte seu repositório
+```bash
+npm run build:pwa  # Build com todos os assets PWA
+```
+
+### **Platforms**
+
+#### **Vercel (Recomendado)**
+1. Conecte seu repositório GitHub
 2. Configure as variáveis de ambiente
-3. Deploy automático a cada push
+3. Build Command: `npm run build:pwa`
+4. Deploy automático com PWA otimizada
+
+#### **Netlify**
+1. Conecte seu repositório
+2. Build Command: `npm run build:pwa`
+3. Publish Directory: `dist`
+4. Configure variáveis de ambiente
+
+#### **GitHub Pages**
+1. Use GitHub Actions para build automático
+2. Deploy da pasta `dist` 
+3. Configure domínio personalizado (opcional)
+
+### **Funcionalidades Pós-Deploy**
+- ✅ Instalação como app nativo
+- ✅ Funcionamento offline
+- ✅ Atualizações automáticas
+- ✅ Push notifications (se configuradas)
 
 ## 🤝 Contribuição
 

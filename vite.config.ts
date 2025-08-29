@@ -19,4 +19,23 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    // Configurações para PWA
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+        },
+      },
+    },
+    // Otimizações para PWA
+    chunkSizeWarningLimit: 1000,
+    sourcemap: false,
+  },
+  // Configurações para desenvolvimento PWA
+  preview: {
+    port: 8080,
+    host: "::",
+  },
 }));
