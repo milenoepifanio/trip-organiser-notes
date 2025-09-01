@@ -212,3 +212,4 @@ Para personalizar a PWA:
 ## 🎉 Sua aplicação agora é uma PWA completa!
 
 A aplicação Travel Notes agora possui todas as características de uma Progressive Web App moderna, proporcionando uma experiência nativa em qualquer dispositivo.
+
